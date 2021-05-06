@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Button } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -23,10 +23,11 @@ const columns = [
   }
 ]
 
-const OutputTodo = ({ data, setCheckedItem, DelTodo }) => {
-  console.log('OutputTodo Component');
-  console.log(data.length);
-
+const OutputTodo = ({ data, checkedItem, setCheckedItem, DelTodo, listUp, listDown }) => {
+  // console.log('OutputTodo Component');
+  // console.log(data.length);
+  // console.log(...data);
+  console.log(`Output checkedItem number : ${checkedItem}`);
   // antd code
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -39,6 +40,10 @@ const OutputTodo = ({ data, setCheckedItem, DelTodo }) => {
       name: record.name,
     }),
   };
+
+  useEffect(() => {
+    console.log('Output Effect!');
+  }, [checkedItem])
 
   return (
     <div style={{ border: "1px solid skyblue", margin: '30px 20px 20px 20px' }}>
@@ -55,6 +60,18 @@ const OutputTodo = ({ data, setCheckedItem, DelTodo }) => {
         style={{ margin: '20px 20px 20px 20px' }}
         onClick={DelTodo}
       >삭제</Button>
+      <Button
+        type="primary"
+        htmlType="button"
+        style={{ margin: '20px 20px 20px 20px' }}
+        onClick={listUp}
+      >위</Button>
+      <Button
+        type="primary"
+        htmlType="button"
+        style={{ margin: '20px 20px 20px 20px' }}
+        onClick={listDown}
+      >아래</Button>
     </div>
   )
 }

@@ -2,8 +2,8 @@ import React from 'react';
 import { Form, Input, Select, Button } from 'antd';
 
 const InputTodo = ({ inputText, inputBool, locals, setInputText, AddTodo }) => {
-  console.log(inputBool);
-  console.log(locals);
+  // console.log(inputBool);
+  // console.log(locals);
   const { Option } = Select;
 
   // 데이터가 복잡할경우 문제가 될 수 있음
@@ -17,7 +17,7 @@ const InputTodo = ({ inputText, inputBool, locals, setInputText, AddTodo }) => {
   }
 
   const onChangeAge = (value) => {
-    console.log(value);
+    // console.log(value);
     const age = 2021 - value + 1;
     setInputText({ ...inputText, age: age })
   }

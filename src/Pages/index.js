@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InputTodo from '../Components/InputTodo';
 import OutputTodo from '../Components/OutputTodo';
-import { v4 as uuidv4 } from 'uuid';
 
 const Home = () => {
   const [inputText, setInputText] = useState({
@@ -31,12 +30,13 @@ const Home = () => {
       setTodoItem([
         ...todoItem,
         {
-          id: uuidv4(),
+          id: todoItem.length,
           name: inputText.name,
           age: inputText.age,
           addr: inputText.addr
         }
       ]);
+      // setListSort(...listSort, todoItem.length);
       setInputText({ name: '', age: '', addr: '' });
       setInputBool({ name: true, age: true, addr: true });
     }
@@ -44,11 +44,12 @@ const Home = () => {
     // console.log(todoItem.map((data) => (data.name)).includes(inputText.name));
     // console.log(todoItem.map((data) => (data.name)));
     // console.log(!inputText.name);
+    // console.log(todoItem);
   }
 
   const DelTodo = () => {
-    console.log('DelTodo');
-    console.log(checkedItem);
+    // console.log('DelTodo');
+    // console.log(checkedItem);
     setTodoItem(
       todoItem.filter(
         check => !checkedItem.includes(check.id)
@@ -56,6 +57,33 @@ const Home = () => {
     );
     setCheckedItem('');
   }
+
+  const listUp = () => {
+    if (checkedItem - 1 < 0) {
+      console.log('첫번째 항목입니다.');
+    } else {
+      // console.log('filter result');
+      // console.log(todoItem);
+      const targetItem = todoItem.filter(todo => todo.id === checkedItem[0]);
+      // console.log(targetItem);
+      const resultItem = todoItem.filter(todo => todo.id !== checkedItem[0]);
+      // console.log(resultItem);
+      resultItem.splice(checkedItem - 1, 0, targetItem[0]);
+      setTodoItem(resultItem);
+      // console.log(todoItem);
+      setCheckedItem([checkedItem - 1]);
+      // console.log(checkedItem);
+    }
+  }
+  const listDown = () => { }
+
+  useEffect(() => {
+    // console.log('index useEffect');
+    // console.log(todoItem);
+    todoItem.map((todo, i) => (
+      todo.id = i
+    ))
+  }, [todoItem]);
 
   return (
     <>
@@ -69,6 +97,9 @@ const Home = () => {
       <OutputTodo
         data={todoItem}
         setCheckedItem={setCheckedItem}
+        checkedItem={checkedItem}
+        listUp={listUp}
+        listDown={listDown}
         DelTodo={DelTodo}
       />
     </>
