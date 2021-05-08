@@ -28,10 +28,11 @@ const OutputTodo = ({ data, checkedItem, setCheckedItem, DelTodo, listUp, listDo
   // console.log(data.length);
   // console.log(...data);
   console.log(`Output checkedItem number : ${checkedItem}`);
+
   // antd code
   const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    onChange: (selectedRowKeys) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`);
       setCheckedItem(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({
