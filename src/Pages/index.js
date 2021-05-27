@@ -64,8 +64,7 @@ const Home = () => {
     todoItem.map((todo, i) => (
       todo.id = i
     ));
-    console.log(checkedItem);
-  }, [todoItem, checkedItem]);
+  }, [todoItem]);
 
   return (
     <>

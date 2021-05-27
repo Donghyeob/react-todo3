@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -27,6 +27,8 @@ const OutputTodo = ({ data, setTodoItem, checkedItem, setCheckedItem, DelTodo })
   // console.log('OutputTodo Component');
   // console.log(data.length);
   // console.log(...data);
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState();
 
   const listUp = () => {
     if (checkedItem - 1 < 0) {
@@ -62,18 +64,23 @@ const OutputTodo = ({ data, setTodoItem, checkedItem, setCheckedItem, DelTodo })
     }
   }
 
-  // antd code
+  const onSelectChange = selectedRowKeys => {
+    console.log(`selectedRowKey : ${selectedRowKeys}`);
+    setSelectedRowKeys(selectedRowKeys);
+    setCheckedItem(selectedRowKeys);
+  }
+
   const rowSelection = {
-    onChange: (selectedRowKeys) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`);
-      setCheckedItem(selectedRowKeys);
-    },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === 'Disabled User',
-      // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
+    selectedRowKeys,
+    onChange: onSelectChange
+  }
+
+  useEffect(() => {
+    // console.log('Output useEffect');
+    // console.log(checkedItem);
+    // console.log(selectedRowKeys);
+    setSelectedRowKeys(checkedItem);
+  }, [checkedItem]);
 
   return (
     <div style={{ border: "1px solid skyblue", margin: '30px 20px 20px 20px' }}>
