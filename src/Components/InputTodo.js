@@ -41,7 +41,7 @@ const InputTodo = ({ inputText, inputBool, locals, setInputText, AddTodo }) => {
         >
           {[...Array(2021 - 1920 + 1)].map((e, i) => (
             <Option key={i + 1920}>{i + 1920}년</Option>
-          ))}
+          )).reverse()}
         </Select>
         {!inputBool.age ? <div style={{ color: 'tomato' }}>나이를 선택하세요.</div> : ''}
       </Form.Item>

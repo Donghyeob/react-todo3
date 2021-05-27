@@ -12,18 +12,18 @@ const Home = () => {
     name: true,
     age: true,
     addr: true,
-  })
+  });
   const [todoItem, setTodoItem] = useState([]);
   const [checkedItem, setCheckedItem] = useState('');
   const locals = ['서울', '부산', '제주'];
 
   const AddTodo = () => {
     if (!inputText.name) {
-      setInputBool({ name: false, age: true, addr: true })
+      setInputBool({ name: false, age: true, addr: true });
     } else if (!inputText.age) {
-      setInputBool({ name: true, age: false, addr: true })
+      setInputBool({ name: true, age: false, addr: true });
     } else if (!inputText.addr) {
-      setInputBool({ name: true, age: true, addr: false })
+      setInputBool({ name: true, age: true, addr: false });
     } else if (todoItem.map((data) => (data.name)).includes(inputText.name)) {
       alert('중복된 이름 입니다.');
     } else {
@@ -44,7 +44,7 @@ const Home = () => {
     // console.log(todoItem.map((data) => (data.name)).includes(inputText.name));
     // console.log(todoItem.map((data) => (data.name)));
     // console.log(!inputText.name);
-    // console.log(todoItem);
+    console.log(todoItem);
   }
 
   const DelTodo = () => {
@@ -58,32 +58,14 @@ const Home = () => {
     setCheckedItem('');
   }
 
-  const listUp = () => {
-    if (checkedItem - 1 < 0) {
-      console.log('첫번째 항목입니다.');
-    } else {
-      // console.log('filter result');
-      // console.log(todoItem);
-      const targetItem = todoItem.filter(todo => todo.id === checkedItem[0]);
-      // console.log(targetItem);
-      const resultItem = todoItem.filter(todo => todo.id !== checkedItem[0]);
-      // console.log(resultItem);
-      resultItem.splice(checkedItem - 1, 0, targetItem[0]);
-      setTodoItem(resultItem);
-      // console.log(todoItem);
-      setCheckedItem([checkedItem - 1]);
-      // console.log(checkedItem);
-    }
-  }
-  const listDown = () => { }
-
   useEffect(() => {
     // console.log('index useEffect');
     // console.log(todoItem);
     todoItem.map((todo, i) => (
       todo.id = i
-    ))
-  }, [todoItem]);
+    ));
+    console.log(checkedItem);
+  }, [todoItem, checkedItem]);
 
   return (
     <>
@@ -98,8 +80,7 @@ const Home = () => {
         data={todoItem}
         setCheckedItem={setCheckedItem}
         checkedItem={checkedItem}
-        listUp={listUp}
-        listDown={listDown}
+        setTodoItem={setTodoItem}
         DelTodo={DelTodo}
       />
     </>

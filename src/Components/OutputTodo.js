@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Table, Button } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -23,11 +23,44 @@ const columns = [
   }
 ]
 
-const OutputTodo = ({ data, checkedItem, setCheckedItem, DelTodo, listUp, listDown }) => {
+const OutputTodo = ({ data, setTodoItem, checkedItem, setCheckedItem, DelTodo }) => {
   // console.log('OutputTodo Component');
   // console.log(data.length);
   // console.log(...data);
-  console.log(`Output checkedItem number : ${checkedItem}`);
+
+  const listUp = () => {
+    if (checkedItem - 1 < 0) {
+      console.log('첫번째 항목입니다.');
+    } else {
+      // console.log(todoItem);
+      const targetItem = data.filter(todo => todo.id === checkedItem[0]);
+      // console.log(targetItem); 
+      const resultItem = data.filter(todo => todo.id !== checkedItem[0]);
+      // console.log(resultItem);
+      resultItem.splice(checkedItem - 1, 0, targetItem[0]);
+      setTodoItem(resultItem);
+      // console.log(todoItem);
+      setCheckedItem([checkedItem - 1]);
+      // console.log(checkedItem);
+    }
+  }
+
+  const listDown = () => {
+    if (checkedItem[0] + 1 >= data.length) {
+      console.log('마지막 항목입니다.');
+    } else {
+      // console.log(todoItem);
+      const targetItem = data.filter(todo => todo.id === checkedItem[0]);
+      // console.log(targetItem);
+      const resultItem = data.filter(todo => todo.id !== checkedItem[0]);
+      // console.log(resultItem);
+      resultItem.splice(checkedItem + 1, 0, targetItem[0]);
+      setTodoItem(resultItem);
+      // console.log(todoItem);
+      setCheckedItem([checkedItem[0] + 1]);
+      // console.log(checkedItem);
+    }
+  }
 
   // antd code
   const rowSelection = {
@@ -41,10 +74,6 @@ const OutputTodo = ({ data, checkedItem, setCheckedItem, DelTodo, listUp, listDo
       name: record.name,
     }),
   };
-
-  useEffect(() => {
-    console.log('Output Effect!');
-  }, [checkedItem])
 
   return (
     <div style={{ border: "1px solid skyblue", margin: '30px 20px 20px 20px' }}>
